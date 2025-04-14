@@ -7,8 +7,14 @@ import {
   signOut
 } from 'firebase/auth'
 
-import firebase_config from './firebase_config.json'
+const get_firebase_config = () => {
+  const req = new XMLHttpRequest()
+  req.open("GET", "./firebase_config.json", false)
+  req.send()
+  return JSON.parse(req.responseText)
+}
 
+const firebase_config = get_firebase_config()
 const firebase_app = initializeApp(firebase_config)
 const firebase_auth = getAuth(firebase_app)
 const sign_in = async (email, password) => { await signInWithEmailAndPassword(firebase_auth, email, password)}
