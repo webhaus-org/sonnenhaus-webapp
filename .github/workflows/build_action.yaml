@@ -20,8 +20,11 @@ jobs:
         run: npm run build_prod
       - name: Package build
         run: tar -cvf release.tar ./dist
+      - name: Calculate Release tag
+        id: vars
+        run: echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.sha }}
+          tag_name: ${{ steps.vars.outputs.release_tag }}
           files: ./release.tar
