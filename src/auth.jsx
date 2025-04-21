@@ -9,7 +9,7 @@ import {
 
 const get_firebase_config = () => {
   const req = new XMLHttpRequest()
-  req.open("GET", "./firebase_config.json", false)
+  req.open("GET", "./firebase_cfg.json", false)
   req.send()
   return JSON.parse(req.responseText)
 }
