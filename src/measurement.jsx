@@ -67,14 +67,17 @@ const MeasurementView = () => {
   }
 
   React.useEffect(() => {fetch_measurements()}, [])
-  const current_measurment = measurements.length > 0 ?
-    JSON.stringify(measurements[measurements.length - 1]['data']) : 'N/A'
+  const current_measurment = measurements.length > 0 ? measurements[measurements.length - 1] : null
   return <>
       <div style={{padding: '1rem'}}>
         <p>Aktuellster Messswert</p>
-        <p style={{lineBreak: 'anywhere'}}>
-          {current_measurment}
-        </p>
+        {!current_measurment && 'N/A'}
+        {current_measurment && <div>
+          <p>Datum: {(new Date(current_measurment['measure_date'] * 1000)).toLocaleString()}</p>
+          <p style={{lineBreak: 'anywhere'}}>
+            {JSON.stringify(current_measurment['data'])}
+          </p>
+        </div>}
       </div>
       <MeasurementChart measurements={measurements} />
     </>
