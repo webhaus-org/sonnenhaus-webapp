@@ -11,18 +11,18 @@ import Paper from '@mui/material/Paper'
 import Snackbar from '@mui/material/Snackbar'
 import TextField from '@mui/material/TextField'
 
-import { MEASUREMENT } from './api.jsx'
 import {
   on_auth_state_changed,
   sign_in,
 } from './auth.jsx'
 
-const MessageContext = React.createContext({set_snackbar: () => {}})
-const MessageSeverity = {
-  ERROR: 'error',
-  SUCCESS: 'success'
-}
-const LoadingContext = React.createContext({set_loading: () => {}})
+import {
+  LoadingContext,
+  MessageContext,
+  MessageSeverity,
+} from './context.jsx'
+
+import MeasurementView from './measurement.jsx'
 
 const ContentMode = {
   QUESTIONNAIRE: {
@@ -104,28 +104,6 @@ const Login = () => {
         </Button>
       </Paper>
     </Box>
-}
-
-const MeasurementView = () => {
-  const [ measurements, set_measurements ] = React.useState([])
-  const { set_loading } = React.useContext(LoadingContext)
-  const { set_snackbar } = React.useContext(MessageContext)
-
-  const fetch_measurements = async () => {
-    set_loading(true)
-    try {
-      const res = await MEASUREMENT.LIST()
-      set_measurements(res)
-      set_loading(false)
-    } catch (error) {
-      set_loading(false)
-      set_snackbar({msg: 'Konnte Messwerte nicht laden', severity: MessageSeverity.ERROR})
-    }
-  }
-
-  React.useEffect(() => {fetch_measurements()}, [])
-
-  return <div>HALLO</div>
 }
 
 const Portal = () => {
