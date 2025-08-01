@@ -106,14 +106,14 @@ const FlowChart = ({measurement}) => {
       grid_home.getAnimations().forEach(a => a.cancel())
       grid_home.animate(key_frames_from_home, animation_options)
     }
-    if (grid_feed_power == grid_consumption_power) {
-      grid_home.getAnimations().forEach(a => a.cancel())
-      grid_power.innerHTML = `${grid_feed_power} W`
-    }
-    else {
+    if (grid_feed_power < grid_consumption_power) {
       grid_power.innerHTML = `${grid_consumption_power} W`
       grid_home.getAnimations().forEach(a => a.cancel())
       grid_home.animate(key_frames_to_home, animation_options)
+    }
+    if (grid_feed_power == grid_consumption_power) {
+      grid_home.getAnimations().forEach(a => a.cancel())
+      grid_power.innerHTML = `${grid_feed_power} W`
     }
   }, [measurement])
   return <div style={{display: 'flex', height: '50vh', justifyContent: 'center', flexDirection: 'row'}}><FlowChartSVG /></div>
