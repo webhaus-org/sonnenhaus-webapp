@@ -76,7 +76,7 @@ const FlowChart = ({measurement}) => {
     const bat_discharging_power = measurement["data"]["bat_discharging_power_watts"]
 
     const grid_feed_power = measurement["data"]["net_feed_watts"]
-    const grid_consumption_power = measurement["data"]["net_feed_watts"]
+    const grid_consumption_power = measurement["data"]["net_consumption_watts"]
 
     const pv_yield = measurement["data"]["pv_gross_yield_watts"]
 
