@@ -8,8 +8,16 @@ const auth_header = async (header={}) => {
 }
 
 const MEASUREMENT = {
-  LIST: async (limit=24*60) => {
-    const params = new URLSearchParams({limit: limit})
+  LIST: async (
+      limit=24*60,
+      min_date=((Math.floor(Date.now() / 1000)) - 24*60*60),
+      max_date=Math.floor((Date.now() / 1000))
+  ) => {
+    const params = new URLSearchParams({
+      limit: limit,
+      min_measure_date: min_date,
+      max_measure_date: max_date
+    })
     const url = `${base_url}/measurement?${params}`
     const headers = await auth_header()
     const resp = await fetch(url, {method: 'GET', headers: headers})
