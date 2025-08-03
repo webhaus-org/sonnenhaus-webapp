@@ -26,8 +26,9 @@ const MeasurementChart = ({measurements}) => {
     const load_watts = measurements.map(m => m['data']['load_watts'])
     const pv_gross_yield = measurements.map(m => m['data']['pv_gross_yield_watts'])
     const bat_soc = measurements.map(m => m['data']['bat_soc_percentage'])
+    const grid_consumption = measurements.map(m => m['data']['net_consumption_watts'])
     const chart_obj = new Chart(canvas_ref.current, {
-      type: 'bar',
+      type: 'line',
       options: {
         responsive: true
       },
@@ -37,18 +38,27 @@ const MeasurementChart = ({measurements}) => {
           {
             label: 'PV Gesamtertrag',
             data: pv_gross_yield,
-            borderWidth: 1
+            borderWidth: 3,
+            tension: 0.4,
           },
           {
             label: 'Last',
             data: load_watts,
-            borderWidth: 1
+            borderWidth: 3,
+            tension: 0.4
           },
           {
             label: 'Batterieladestand',
             data: bat_soc,
-            borderWidth: 1
-          }
+            borderWidth: 3,
+            tension: 0.4
+          },
+          {
+            label: 'Netzbezug',
+            data: grid_consumption,
+            borderWidth: 3,
+            tension: 0.4
+          },
         ]
       }
     })
