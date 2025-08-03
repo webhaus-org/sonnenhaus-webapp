@@ -80,6 +80,12 @@ const FlowChart = ({measurement}) => {
 
     const pv_yield = measurement["data"]["pv_gross_yield_watts"]
 
+    const battery_soc = document.getElementById("battery-soc")
+    battery_soc.innerHTML = `${measurement["data"]["bat_soc_percentage"]}%`
+
+    const home_load = document.getElementById("home-load")
+    home_load.innerHTML = `${measurement["data"]["load_watts"]} W`
+
     if (pv_yield > 0) {
       pv_power.innerHTML = `${pv_yield} W`
       pv_home.getAnimations().forEach(a => a.cancel())
